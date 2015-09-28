@@ -52,7 +52,7 @@ MessageListView.prototype.checkToAddMore = function() {
 		return;
 	}
 	// Need to decide when to try to load more previous messages.
-	if ( window.scrollY < 500 ) {
+	if ( window.scrollY < 400 ) {
 		this.loadMore();
 	}
 	this.lastScroll = window.scrollY;
