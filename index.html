@@ -12,8 +12,6 @@
 		padding: 10px;
 		margin: 0 auto;
 	}
-	.message {
-	}
 	</style>
 </head>
 <body>
@@ -31,8 +29,6 @@
 		messages.push( randomSentence() );
 	}
 	var messagesEl = document.querySelector('.messages');
-	//
-	//
 	/**
 	 * Load ten messages into the DOM.
 	 *
@@ -79,7 +75,7 @@
 		}
 		lastScroll = window.scrollY;
 	};
-	window.setInterval(scrollChecker, 100 );
+	window.setInterval(scrollChecker, 75 );
 	</script>
 </body>
 </html>
