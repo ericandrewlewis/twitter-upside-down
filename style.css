@@ -1,0 +1,24 @@
+body {
+	background: whitesmoke;
+	margin: 0;
+}
+
+.messages {
+	background: orangered;
+	width: 300px;
+	padding: 10px;
+	margin: 0 auto;
+}
+
+.explanation {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	padding: 5px;
+	background-color: seashell;
+	width: 300px;
+}
+
+h1 {
+	font-size: 20px;
+}
