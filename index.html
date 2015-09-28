@@ -1,0 +1,89 @@
+<html>
+<head>
+	<title></title>
+	<style>
+	body {
+		background: whitesmoke;
+		margin: 0;
+	}
+	.messages {
+		background: orangered;
+		width: 300px;
+		padding: 10px;
+		margin: 0 auto;
+	}
+	.message {
+	}
+	</style>
+</head>
+<body>
+	<div class="messages"></div>
+	<script>
+	// Returns a function, that, as long as it continues to be invoked, will not
+	// be triggered. The function will be called after it stops being called for
+	// N milliseconds. If `immediate` is passed, trigger the function on the
+	// leading edge, instead of the trailing.
+	function debounce(func, wait, immediate) {
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+		};
+	};
+	var messages = [];
+	var words = ['glerfsum', 'lorem', 'dolor', 'amit', 'clamor', 'glarf'];
+	var randomWord = function() {
+		return words[Math.floor( Math.random() * words.length )];
+	}
+	var randomSentence = function() {
+		return randomWord() + ' ' + randomWord() + ' ' + randomWord() + ' ' + randomWord();
+	};
+	for ( i=0; i<=100; i++ ) {
+		messages.push( randomSentence() );
+	}
+	var messagesEl = document.querySelector('.messages');
+	// Load ten messages into the DOM.
+	// Automatically deletes messages from the store.
+	var loadMessages = function() {
+		var j = messages.length - 20;
+		if ( ! messages.length ) {
+			return;
+		}
+		for ( var i = messages.length - 1; i >= j; i-- ) {
+			var div = document.createElement('div');
+			var textNode = document.createTextNode( '#' + i + ': ' + messages[i] );
+			div.appendChild( textNode );
+			if ( messagesEl.children ) {
+				messagesEl.insertBefore( div, messagesEl.firstChild );
+			} else {
+				messagesEl.appendChild( div );
+			}
+			messages = messages.splice( 0, i );
+			// Keep scroll position
+			window.scrollTo( 0, window.scrollY + div.offsetHeight );
+		}
+	};
+	for ( var i=0; i<=3; i++) {
+		loadMessages();
+	}
+	// scroll to the bottom on first load.
+	window.scrollTo( 0, messagesEl.offsetHeight - window.innerHeight );
+
+	// Listen to scroll and load more messages as needed.
+	var scrollListener = debounce(function() {
+		// Need to decide when to try to load more previous messages.
+		if ( window.scrollY < 300 ) {
+			loadMessages();
+		}
+	}, 100, true );
+	document.body.onscroll = scrollListener;
+	</script>
+</body>
+</html>
