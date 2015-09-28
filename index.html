@@ -28,54 +28,73 @@
 	for ( i=0; i<=100; i++ ) {
 		messages.push( randomSentence() );
 	}
-	var messagesEl = document.querySelector('.messages');
+
 	/**
-	 * Load ten messages into the DOM.
+	 * @constructor
+	 */
+	var MessageListView = function() {
+		this.messagesPerPage = 20;
+		this.el = document.querySelector('.messages');
+		this.messages = messages;
+		window.setInterval( this.checkToAddMore.bind( this ), 75 );
+	};
+
+	/**
+	 * Load 20 messages into the DOM.
 	 *
 	 * Automatically deletes messages from the store.
 	 */
-	var loadMessages = function() {
-		var j = messages.length - 20;
-		if ( j < 0 ) {
-			j = 0;
-		}
-		if ( ! messages.length ) {
+	MessageListView.prototype.loadMore = function() {
+		if ( ! this.messages.length ) {
 			return;
 		}
-		for ( var i = messages.length - 1; i >= j; i-- ) {
+		var lowerBound = this.messages.length - this.messagesPerPage;
+		if ( lowerBound < 0 ) {
+			lowerBound = 0;
+		}
+		for ( var i = this.messages.length - 1; i >= lowerBound; i-- ) {
 			var div = document.createElement('div');
-			var textNode = document.createTextNode( '#' + i + ': ' + messages[i] );
+			var textNode = document.createTextNode( '#' + i + ': ' + this.messages[i] );
 			div.appendChild( textNode );
-			if ( messagesEl.children ) {
-				messagesEl.insertBefore( div, messagesEl.firstChild );
+			if ( this.el.children ) {
+				this.el.insertBefore( div, this.el.firstChild );
 			} else {
-				messagesEl.appendChild( div );
+				this.el.appendChild( div );
 			}
 			// Remove the message from the store.
-			messages = messages.splice( 0, i );
+			this.messages = this.messages.splice( 0, i );
 			// Don't let the new element modify previous scrolled state.
 			window.scrollTo( 0, window.scrollY + div.offsetHeight );
 		}
 	};
-	for ( var i=0; i<=2; i++) {
-		loadMessages();
-	}
-	// scroll to the bottom on first load.
-	window.scrollTo( 0, messagesEl.offsetHeight - window.innerHeight );
 
-	var lastScroll = window.scrollY;
-	// Listen to scroll and load more messages as needed.
-	var scrollChecker = function() {
-		if ( lastScroll === window.scrollY ) {
+	/**
+	 * Check scroll position and load more messages as needed.
+	 */
+	MessageListView.prototype.checkToAddMore = function() {
+		if ( typeof this.lastScroll === 'undefined' ) {
+			this.lastScroll = window.scrollY;
+			return;
+		}
+		if ( this.lastScroll === window.scrollY ) {
 			return;
 		}
 		// Need to decide when to try to load more previous messages.
 		if ( window.scrollY < 300 ) {
-			loadMessages();
+			this.loadMore();
 		}
-		lastScroll = window.scrollY;
+		this.lastScroll = window.scrollY;
 	};
-	window.setInterval(scrollChecker, 75 );
+
+	// Create an instance of the view and load it with messages.
+	// Preferably message loading should happen automatically.
+	var x = new MessageListView();
+	for ( var i=0; i<=2; i++) {
+		x.loadMore();
+	}
+
+	// Scroll to the bottom on first load.
+	window.scrollTo( 0, x.el.offsetHeight - window.innerHeight );
 	</script>
 </body>
 </html>
