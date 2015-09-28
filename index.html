@@ -49,10 +49,18 @@
 		messages.push( randomSentence() );
 	}
 	var messagesEl = document.querySelector('.messages');
-	// Load ten messages into the DOM.
-	// Automatically deletes messages from the store.
+	//
+	//
+	/**
+	 * Load ten messages into the DOM.
+	 *
+	 * Automatically deletes messages from the store.
+	 */
 	var loadMessages = function() {
 		var j = messages.length - 20;
+		if ( j < 0 ) {
+			j = 0;
+		}
 		if ( ! messages.length ) {
 			return;
 		}
@@ -65,25 +73,31 @@
 			} else {
 				messagesEl.appendChild( div );
 			}
+			// Remove the message from the store.
 			messages = messages.splice( 0, i );
-			// Keep scroll position
+			// Don't let the new element modify previous scrolled state.
 			window.scrollTo( 0, window.scrollY + div.offsetHeight );
 		}
 	};
-	for ( var i=0; i<=3; i++) {
+	for ( var i=0; i<=2; i++) {
 		loadMessages();
 	}
 	// scroll to the bottom on first load.
 	window.scrollTo( 0, messagesEl.offsetHeight - window.innerHeight );
 
+	var lastScroll = window.scrollY;
 	// Listen to scroll and load more messages as needed.
-	var scrollListener = debounce(function() {
+	var scrollChecker = function() {
+		if ( lastScroll === window.scrollY ) {
+			return;
+		}
 		// Need to decide when to try to load more previous messages.
 		if ( window.scrollY < 300 ) {
 			loadMessages();
 		}
-	}, 100, true );
-	document.body.onscroll = scrollListener;
+		lastScroll = window.scrollY;
+	};
+	window.setInterval(scrollChecker, 100 );
 	</script>
 </body>
 </html>
