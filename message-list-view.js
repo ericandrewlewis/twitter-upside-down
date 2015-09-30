@@ -25,18 +25,16 @@ MessageListView.prototype.loadMore = function() {
 		lowerBound = 0;
 	}
 	for ( var i = this.messages.length - 1; i >= lowerBound; i-- ) {
-		var div = document.createElement('div');
-		var textNode = document.createTextNode( '#' + i + ': ' + this.messages[i] );
-		div.appendChild( textNode );
+		var listItem = new MessageListItem( { data: this.messages[i] } );
 		if ( this.el.children ) {
-			this.el.insertBefore( div, this.el.firstChild );
+			this.el.insertBefore( listItem.el, this.el.firstChild );
 		} else {
-			this.el.appendChild( div );
+			this.el.appendChild( listItem.el );
 		}
 		// Remove the message from the store.
 		this.messages = this.messages.splice( 0, i );
 		// Don't let the new element modify previous scrolled state.
-		window.scrollTo( 0, window.scrollY + div.offsetHeight );
+		window.scrollTo( 0, window.scrollY + listItem.el.offsetHeight );
 	}
 };
 

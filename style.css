@@ -1,10 +1,12 @@
 body {
-	background: whitesmoke;
+	background: #f5f8fa;
 	margin: 0;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
+.tweet {
+	background: #fff;
+}
 .messages {
-	background: orangered;
 	width: 300px;
 	padding: 10px;
 	margin: 0 auto;

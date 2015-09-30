@@ -2,6 +2,7 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" href="style.css">
+	<script src="/bower_components/oauth-js/dist/oauth.min.js"></script>
 </head>
 <body>
 	<div class="explanation">
@@ -9,34 +10,41 @@
 		<p>The newest items are presented at first load. Older items are loaded with infinite reverse scroll.</p>
 	</div>
 	<div class="messages"></div>
+	<script src="data.js"></script>
+	<script src="jquery.min.js"></script>
 	<script src="message-list-view.js"></script>
+	<script src="message-list-item.js"></script>
 	<script>
-	var messages = [];
-	var words = ['glerfsum', 'lorem', 'dolor', 'amit', 'clamor', 'glarf'];
-	var randomWord = function() {
-		return words[Math.floor( Math.random() * words.length )];
-	}
-	var randomSentence = function() {
-		return randomWord() + ' ' + randomWord() + ' ' + randomWord() + ' ' + randomWord();
-	};
-	for ( i=0; i<=500; i++ ) {
-		messages.push( randomSentence() );
-	}
+	debugger;
+	function initialize(data) {
+		// Create an instance of the view and load it with messages.
+		var x = new MessageListView({
+			el: document.querySelector('.messages'),
+			messages: data,
+			messagesPerPage: 20,
+		});
 
-	// Create an instance of the view and load it with messages.
-	var x = new MessageListView({
-		el: document.querySelector('.messages'),
-		messages: messages,
-		messagesPerPage: 20,
-	});
+		// Preferably message loading could happen automatically.
+		while ( window.innerHeight > x.el.offsetHeight ) {
+			x.loadMore();
+		}
 
-	// Preferably message loading could happen automatically.
-	while ( window.innerHeight > x.el.offsetHeight ) {
-		x.loadMore();
+		// Scroll to the bottom on first load.
+		window.scrollTo( 0, x.el.offsetHeight - window.innerHeight );
 	}
-
-	// Scroll to the bottom on first load.
-	window.scrollTo( 0, x.el.offsetHeight - window.innerHeight );
+	initialize(data);
+	// OAuth.initialize('ve7obqtaMvEjpzR23cYcCOH2g9o');
+	// OAuth.popup('twitter', {cache: true}).done(function(twitter) {
+	// 	twitter.get('/1.1/statuses/home_timeline.json?count=200').done(function(data) {
+	// 		initialize(data);
+	// 	//todo with data
+	// 	}).fail(function(err) {
+	// 	//todo with err
+	// 	});
+	// 	//make API calls with `twitter`
+	// }).fail(function(err) {
+	// 	//todo when the OAuth flow failed
+	// });
 	</script>
 	<a href="https://github.com/ericandrewlewis/ground-up"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 </body>
