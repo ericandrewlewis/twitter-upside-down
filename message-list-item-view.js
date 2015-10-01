@@ -26,10 +26,12 @@ MessageListItemView.prototype.render = function() {
 	var tweetContent = document.createElement('div');
 	tweetContent.className = 'tweet-content';
 
+	var tweetHeader = document.createElement('div');
 	var tweetName = document.createElement('strong');
 	var tweetNameText = document.createTextNode( this.data.user.name );
 	tweetName.appendChild( tweetNameText );
-	tweetContent.appendChild( tweetName );
+	tweetHeader.appendChild( tweetName );
+	tweetContent.appendChild( tweetHeader );
 
 	var textNode = document.createTextNode( this.data.text );
 	tweetContent.appendChild( textNode );
