@@ -12,6 +12,7 @@
 	<script>
 	// debugger;
 	function initialize(data) {
+		data.reverse();
 		// Create an instance of the view and load it with messages.
 		window.x = new MessageListView({
 			el: document.querySelector('.messages'),
