@@ -18,19 +18,16 @@
 	// debugger;
 	function initialize(data) {
 		// Create an instance of the view and load it with messages.
-		var x = new MessageListView({
+		window.x = new MessageListView({
 			el: document.querySelector('.messages'),
 			messages: data,
 			messagesPerPage: 20,
 		});
 
 		// Preferably message loading could happen automatically.
-		while ( window.innerHeight > x.el.offsetHeight ) {
+		for ( i=0;i<=3;i++) {
 			x.loadMore();
 		}
-
-		// Scroll to the bottom on first load.
-		window.scrollTo( 0, x.el.offsetHeight - window.innerHeight );
 	}
 	initialize(data);
 	// OAuth.initialize('ve7obqtaMvEjpzR23cYcCOH2g9o');

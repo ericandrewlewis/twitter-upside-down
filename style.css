@@ -5,7 +5,10 @@ body {
 }
 
 .tweet {
+	clear: both;
 	background: #fff;
+	padding: 10px;
+	border-top: 1px solid #f5f8fa;
 }
 
 .avatar {
@@ -14,6 +17,10 @@ body {
 
 .tweet-content {
 	margin-left: 58px;
+	/** This is to account for the fact that the avatar has float on it, and we want
+	tweet.clientHeight to include the height of the image. I wonder if we could
+	do this differently...more intelligently... */
+	min-height: 48px;
 }
 
 .messages {
