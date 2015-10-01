@@ -46,7 +46,8 @@ MessageListItemView.prototype.render = function() {
 	tweetContent.className = 'tweet-content';
 	var time = humanTimeDifference( new Date().getTime(), new Date( this.data.created_at ).getTime() );
 	var tweetHeader = document.createElement('div');
-	tweetHeader.innerHTML = '<strong>' + this.data.user.name + '</strong> &middot; ' + time;
+
+	tweetHeader.innerHTML = '<strong>' + this.data.user.name + '</strong> &middot; <a href="https://twitter.com/' + this.data.user.screen_name + '/status/' + this.data.id_str + '">' + time + '</a>';
 	tweetContent.appendChild( tweetHeader );
 
 	var textNode = document.createTextNode( this.data.text );

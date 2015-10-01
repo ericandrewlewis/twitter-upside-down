@@ -23,6 +23,15 @@ body {
 	min-height: 48px;
 }
 
+.tweet-content a {
+	color: #8899a6;
+	text-decoration: none;
+}
+
+.tweet-content:hover a {
+	color: #8899a6;
+	text-decoration: underline;
+}
 .messages {
 	width: 500px;
 	padding: 10px;
