@@ -10,11 +10,32 @@ var MessageListItem = function(args) {
 };
 
 MessageListItem.prototype.render = function() {
+	var self = this;
 	this.el = document.createElement('div');
 	this.el.className = 'tweet';
+	var tweetHeader = document.createElement('div');
+	var tweetName = document.createElement('strong');
+	var tweetNameText = document.createTextNode( this.data.user.name );
+	tweetName.appendChild( tweetNameText );
+	this.el.appendChild( tweetName);
+
+	var imgWrapper = document.createElement('div');
+	imgWrapper.className = 'avatar';
 	var img = document.createElement('img');
+	img.onload = function() {
+		self.DOMContentLoaded();
+	};
 	img.src = this.data.user.profile_image_url_https;
-	this.el.appendChild( img );
+	imgWrapper.appendChild( img );
+	this.el.appendChild( imgWrapper );
+	var textWrapper = document.createElement('div');
+	textWrapper.className = 'tweet-content';
 	var textNode = document.createTextNode( this.data.text );
-	this.el.appendChild( textNode );
+	textWrapper.appendChild( textNode );
+	this.el.appendChild( textWrapper );
 };
+
+MessageListItem.prototype.DOMContentLoaded = function() {
+	// Don't let the new element modify previous scrolled state.
+	window.scrollTo( 0, window.scrollY + this.el.offsetHeight );
+}

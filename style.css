@@ -3,9 +3,19 @@ body {
 	margin: 0;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
 .tweet {
 	background: #fff;
 }
+
+.avatar {
+	float: left;
+}
+
+.tweet-content {
+	margin-left: 58px;
+}
+
 .messages {
 	width: 300px;
 	padding: 10px;

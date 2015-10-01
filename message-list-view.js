@@ -33,8 +33,6 @@ MessageListView.prototype.loadMore = function() {
 		}
 		// Remove the message from the store.
 		this.messages = this.messages.splice( 0, i );
-		// Don't let the new element modify previous scrolled state.
-		window.scrollTo( 0, window.scrollY + listItem.el.offsetHeight );
 	}
 };
 
