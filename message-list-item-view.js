@@ -50,8 +50,15 @@ MessageListItemView.prototype.render = function() {
 	tweetHeader.innerHTML = '<strong>' + this.data.user.name + '</strong> &middot; <a href="https://twitter.com/' + this.data.user.screen_name + '/status/' + this.data.id_str + '">' + time + '</a>';
 	tweetContent.appendChild( tweetHeader );
 
-	var textNode = document.createTextNode( this.data.text );
-	tweetContent.appendChild( textNode );
+	var text = this.data.text;
+	if ( this.data.entities.urls.length ) {
+		this.data.entities.urls.forEach(function(url) {
+			text = text.replace( url.url, '<a target="_blank" href="'+ url.expanded_url+'">' + url.display_url + '</a>' );
+		});
+	}
+	var content = document.createElement( 'div' );
+	content.innerHTML = text;
+	tweetContent.appendChild( content );
 	this.el.appendChild( tweetContent );
 };
 

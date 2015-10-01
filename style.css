@@ -15,6 +15,10 @@ body {
 	float: left;
 }
 
+.avatar img {
+	border-radius: 5px;
+}
+
 .tweet-content {
 	margin-left: 58px;
 	/** This is to account for the fact that the avatar has float on it, and we want
@@ -28,7 +32,7 @@ body {
 	text-decoration: none;
 }
 
-.tweet-content:hover a {
+.tweet-content a:hover {
 	color: #8899a6;
 	text-decoration: underline;
 }
