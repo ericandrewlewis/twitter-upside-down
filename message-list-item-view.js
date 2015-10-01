@@ -9,6 +9,25 @@ var MessageListItemView = function(args) {
 	this.render();
 };
 
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function humanTimeDifference(unixtime1, unixtime2) {
+	var difference = unixtime1 - unixtime2;
+	difference = Math.ceil( difference / 1000 );
+	if ( difference < 60 )  {
+		return difference + 's';
+	}
+	difference = Math.ceil( difference / 60 );
+	if ( difference < 60 )  {
+		return difference + 'm';
+	}
+	difference = Math.ceil( difference / 24 );
+	if ( difference < 24 )  {
+		return difference + 'h';
+	}
+	var date = new Date( unixtime2 );
+	return months[date.getMonth()] + date.getDate();
+};
+
 MessageListItemView.prototype.render = function() {
 	var self = this;
 	this.el = document.createElement('div');
@@ -25,12 +44,9 @@ MessageListItemView.prototype.render = function() {
 	this.el.appendChild( imgWrapper );
 	var tweetContent = document.createElement('div');
 	tweetContent.className = 'tweet-content';
-
+	var time = humanTimeDifference( new Date().getTime(), new Date( this.data.created_at ).getTime() );
 	var tweetHeader = document.createElement('div');
-	var tweetName = document.createElement('strong');
-	var tweetNameText = document.createTextNode( this.data.user.name );
-	tweetName.appendChild( tweetNameText );
-	tweetHeader.appendChild( tweetName );
+	tweetHeader.innerHTML = '<strong>' + this.data.user.name + '</strong> &middot; ' + time;
 	tweetContent.appendChild( tweetHeader );
 
 	var textNode = document.createTextNode( this.data.text );
