@@ -25,7 +25,7 @@ MessageListView.prototype.loadMore = function() {
 		lowerBound = 0;
 	}
 	for ( var i = this.messages.length - 1; i >= lowerBound; i-- ) {
-		var listItem = new MessageListItem( { data: this.messages[i] } );
+		var listItem = new MessageListItemView( { data: this.messages[i] } );
 		if ( this.el.children ) {
 			this.el.insertBefore( listItem.el, this.el.firstChild );
 		} else {

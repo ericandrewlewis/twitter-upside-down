@@ -4,12 +4,12 @@
  *
  * @constructor
  */
-var MessageListItem = function(args) {
+var MessageListItemView = function(args) {
 	this.data = args.data;
 	this.render();
 };
 
-MessageListItem.prototype.render = function() {
+MessageListItemView.prototype.render = function() {
 	var self = this;
 	this.el = document.createElement('div');
 	this.el.className = 'tweet';
@@ -35,7 +35,7 @@ MessageListItem.prototype.render = function() {
 	this.el.appendChild( textWrapper );
 };
 
-MessageListItem.prototype.DOMContentLoaded = function() {
+MessageListItemView.prototype.DOMContentLoaded = function() {
 	// Don't let the new element modify previous scrolled state.
 	window.scrollTo( 0, window.scrollY + this.el.offsetHeight );
 }
