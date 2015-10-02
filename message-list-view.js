@@ -8,7 +8,7 @@ var MessageListView = function(args) {
 	this.messagesPerPage = args.messagesPerPage;
 	this.el = args.el;
 	this.messages = args.messages;
-	window.setInterval( this.checkToAddMore.bind( this ), 75 );
+	window.setInterval( this.checkToAddMore.bind( this ), 100 );
 };
 
 /**
