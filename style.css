@@ -16,6 +16,7 @@ body {
 	background: #fff;
 	padding: 10px;
 	border-top: 1px solid #f5f8fa;
+	word-wrap: break-word;
 }
 
 .avatar {
