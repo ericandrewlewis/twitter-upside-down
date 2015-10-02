@@ -41,7 +41,7 @@
 	function getDataFromAPI() {
 		OAuth.initialize('ve7obqtaMvEjpzR23cYcCOH2g9o');
 		if ( window.location.hash !== '#loggedin' ) {
-			OAuth.redirect('twitter', 'http://localhost:8000/#loggedin');
+			OAuth.redirect('twitter', 'https://ericandrewlewis.github.io/twitter-upside-down/#loggedin');
 		}
 		OAuth.callback('twitter', {cache: true}).done(function(twitter) {
 			twitter.get('/1.1/statuses/home_timeline.json?count=200').done(function(data) {
