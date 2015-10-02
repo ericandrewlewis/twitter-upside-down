@@ -1,3 +1,10 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
 	background: #f5f8fa;
 	margin: 0;
@@ -47,7 +54,11 @@ body {
 	padding: 10px;
 	margin: 0 auto;
 }
-
+@media (max-width: 600px) {
+	.messages {
+		width: 100%;
+	}
+}
 .explanation {
 	position: fixed;
 	top: 10px;
