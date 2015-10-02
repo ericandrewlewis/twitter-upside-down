@@ -36,6 +36,12 @@ body {
 	color: #8899a6;
 	text-decoration: underline;
 }
+
+.media img {
+	max-width: 100%;
+	padding: 10px 0;
+}
+
 .messages {
 	width: 500px;
 	padding: 10px;

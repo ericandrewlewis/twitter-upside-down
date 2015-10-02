@@ -6,6 +6,8 @@
  */
 var MessageListItemView = function(args) {
 	this.data = args.data;
+	this.imagesInContent = 0;
+	this.imagesRendered = 0;
 	this.render();
 };
 
@@ -36,10 +38,9 @@ MessageListItemView.prototype.render = function() {
 	var imgWrapper = document.createElement('div');
 	imgWrapper.className = 'avatar';
 	var img = document.createElement('img');
-	img.onload = function() {
-		self.DOMContentLoaded();
-	};
+	img.onload = this.imageLoaded.bind( this );
 	img.src = this.data.user.profile_image_url_https;
+	this.imagesInContent++;
 	imgWrapper.appendChild( img );
 	this.el.appendChild( imgWrapper );
 	var tweetContent = document.createElement('div');
@@ -58,8 +59,29 @@ MessageListItemView.prototype.render = function() {
 	}
 	var content = document.createElement( 'div' );
 	content.innerHTML = text;
+
 	tweetContent.appendChild( content );
+
+	if ( this.data.extended_entities ) {
+		this.data.extended_entities.media.forEach(function(item) {
+			self.imagesInContent++;
+			var mediaContent = document.createElement( 'div' );
+			mediaContent.className = 'media';
+			var img = document.createElement('img');
+			img.onload = self.imageLoaded.bind( self );
+			img.src = item.media_url_https;
+			mediaContent.appendChild( img );
+			tweetContent.appendChild( mediaContent );
+		});
+	}
 	this.el.appendChild( tweetContent );
+};
+
+MessageListItemView.prototype.imageLoaded = function() {
+	this.imagesRendered++;
+	if ( this.imagesRendered === this.imagesInContent ) {
+		this.DOMContentLoaded();
+	}
 };
 
 MessageListItemView.prototype.DOMContentLoaded = function() {
