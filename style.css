@@ -5,6 +5,20 @@ html {
   box-sizing: inherit;
 }
 
+.explainer {
+	background: white;
+	padding: 0px 10px;
+	position: fixed;
+	top: 10px;
+	left: 10px;
+}
+
+@media (max-width: 600px) {
+	.explainer {
+		display: none;
+	}
+}
+
 body {
 	background: #f5f8fa;
 	margin: 0;
@@ -55,11 +69,13 @@ body {
 	padding: 10px;
 	margin: 0 auto;
 }
+
 @media (max-width: 600px) {
 	.messages {
 		width: 100%;
 	}
 }
+
 .explanation {
 	position: fixed;
 	top: 10px;
