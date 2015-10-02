@@ -40,7 +40,7 @@
 	function getDataFromAPI() {
 		OAuth.initialize('ve7obqtaMvEjpzR23cYcCOH2g9o');
 		//Example with Google
-		OAuth.redirect('google', 'https://ericandrewlewis.github.io/twitter-upside-down/');
+		OAuth.redirect('twitter', 'https://ericandrewlewis.github.io/twitter-upside-down/');
 		OAuth.callback('twitter', {cache: true}).done(function(twitter) {
 			twitter.get('/1.1/statuses/home_timeline.json?count=200').done(function(data) {
 				localStorage.setItem( 'tud-tweets', JSON.stringify( data ) );
